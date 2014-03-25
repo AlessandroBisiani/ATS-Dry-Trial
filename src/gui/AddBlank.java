@@ -18,7 +18,7 @@ public class AddBlank extends javax.swing.JFrame {
 
     DBConnectionDT dbConnectionDT = null;
     //randNumber is appended to blankCode to make a Blank ID
-    String randNumber = "";
+    String randNumberString;
     /**
      * Creates new form Menu_Manager
      */
@@ -117,6 +117,10 @@ public class AddBlank extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(addBlank)
+                .addGap(75, 75, 75))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -128,9 +132,6 @@ public class AddBlank extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(blankNumberTF)
                             .addComponent(blankCodeTF, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(addBlank))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(calculateFullBlankNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -147,11 +148,11 @@ public class AddBlank extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(blankNumberTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
                 .addComponent(calculateFullBlankNumber)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addBlank)
-                .addGap(22, 22, 22))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -178,12 +179,13 @@ public class AddBlank extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
-                        .addComponent(jButton4)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton4)
+                        .addGap(0, 19, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -285,18 +287,18 @@ public class AddBlank extends javax.swing.JFrame {
         if(blankCodeTF.getText() != null){
             //int blankCode = new Integer(blankCodeTF.getText());    
             //System.out.println(blankCode);
-            String randNumber = "";
+            randNumberString = "";
             //calculate random number and append the blank code.
             Random random = new Random();
             int i =0;
             while(i<8){
-                randNumber = randNumber + String.valueOf(random.nextInt(9));
+                randNumberString = randNumberString + String.valueOf(random.nextInt(9));
                 i++;
-                System.out.println(randNumber);
+                //TEST System.out.println(randNumberString);
             }
             //System.out.println(blankCodeInput);
             //display blankCodeInput in blankNumberTF
-            blankNumberTF.setText(blankCodeTF.getText()+randNumber);
+            blankNumberTF.setText(blankCodeTF.getText()+randNumberString);
         }
     }//GEN-LAST:event_calculateFullBlankNumberActionPerformed
 
@@ -306,19 +308,25 @@ public class AddBlank extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutActionPerformed
 
     private void addBlankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBlankActionPerformed
-        
-        String blankCode = blankCodeTF.getText();
-        
-        //System.out.println(blankNumberString);
         //int blankNumber = Integer.parseInt(blankNumberString);
         //Integer blankNumber = Integer.valueOf(blankNumberString);
         //Integer blankNumber = new Integer(blankNumberString);
         
-        //System.out.println("Added: "+blankNumber);
-        
-        /*blankCodeTF.setText("");
-        *blankNumberTF.setText("");
-        */
+        if(Integer.parseInt(blankCodeTF.getText()) == (444) || Integer.parseInt(blankCodeTF.getText()) == (440) ||
+                Integer.parseInt(blankCodeTF.getText()) == (420) || Integer.parseInt(blankCodeTF.getText()) == (201) ||
+                Integer.parseInt(blankCodeTF.getText()) == (101) || Integer.parseInt(blankCodeTF.getText()) == (451) ||
+                Integer.parseInt(blankCodeTF.getText()) == (452)){
+            int blankCode = Integer.parseInt(blankCodeTF.getText());
+            int randNumber = Integer.parseInt(randNumberString);
+            dbConnectionDT.write("INSERT INTO Blank(blankID, blankStatus, blankTypeID) VALUES (\""+randNumber+"\", \"unassigned\", \""+blankCode+"\");");
+
+            System.out.println("Added: "+blankCode+randNumber);
+
+            blankCodeTF.setText("");
+            blankNumberTF.setText("");
+        } else {
+            System.out.println("Invalid Blank Code");
+        }
     }//GEN-LAST:event_addBlankActionPerformed
 
     /**

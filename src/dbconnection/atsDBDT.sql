@@ -140,3 +140,5 @@ DELETE FROM Address WHERE county = "Westminster" OR city = "Battle";
 SELECT * FROM Address;
 
 SELECT firstName, surname, `role` FROM `User`;
+
+INSERT INTO BlankType(blankTypeID, numberOfCoupons) VALUES (444, 4), (440, 4), (420, 2), (201, 2), (101, 1), (451, NULL), (452, NULL);
