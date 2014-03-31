@@ -51,7 +51,7 @@ CREATE TABLE `User`(
     username VARCHAR(20),
     password VARCHAR(20),
     firstName VARCHAR(20),
-    surname VARCHAR(20),
+    lastName VARCHAR(20),
     `role` VARCHAR(20),
     PRIMARY KEY (username)
 );
@@ -138,7 +138,7 @@ INSERT INTO Customer VALUES
     (null, "Jack", "Minchel", "Mr", "Regular", 2, 4),
     (null, "Michael", "Mandon", "Mr", "Regular", 3, 3);
 
-INSERT INTO `User`(username, password, firstName, surname, `role`) VALUES
+INSERT INTO `User`(username, password, firstName, lastName, `role`) VALUES
     ("addmein", MD5("Greedy"), "Glara", "McJanes", "Admin"),
     ("Jennifer", MD5("WestChance"), "Jennifer", "Alba", "Office Manager"),
     ("Sandy", MD5("PassMyWord"), "Sandy", "Alba", "Advisor");
